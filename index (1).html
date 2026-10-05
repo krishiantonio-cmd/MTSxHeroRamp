@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HeroRamp × Millennium Technology Services</title>
+<meta name="description" content="Intro conversation: building Philippine technology talent pools with HeroRamp.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gut:max(clamp(1.5rem,7vw,7rem),calc((100vw - 68rem) / 2));
+  --navy:#0F172A; --blue:#1E40AF; --green:#22C55E; --teal:#14B8A6;
+  --ink:#0F172A; --muted:#475569; --line:#CBD5E1; --paper:#FFFFFF; --mist:#F1F5F9;
+  --font:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--navy);font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased}
+body{overflow:hidden}
+.deck{position:relative;height:100%;width:100%}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
+  padding:max(4.5rem,env(safe-area-inset-top)) clamp(1.5rem,7vw,7rem) max(6rem,calc(env(safe-area-inset-bottom) + 5rem));
+  background:var(--paper);opacity:0;visibility:hidden;transition:opacity .35s ease;overflow-y:auto}
+.slide.active{opacity:1;visibility:visible}
+.slide.dark{background:var(--navy);color:#fff}
+.inner{max-width:68rem;width:100%;margin:0 auto}
+h1{font-size:clamp(2.2rem,5.6vw,4.6rem);line-height:1.04;font-weight:800;letter-spacing:-.03em}
+h2{font-size:clamp(1.7rem,3.6vw,2.9rem);line-height:1.1;font-weight:700;letter-spacing:-.02em;max-width:22ch}
+p.lede{font-size:clamp(1.05rem,1.6vw,1.35rem);line-height:1.55;color:var(--muted);max-width:56ch;margin-top:1.25rem}
+.dark p.lede{color:#CBD5E1}
+.kicker{font-size:.95rem;font-weight:600;color:var(--blue);margin-bottom:1rem}
+.dark .kicker{color:var(--green)}
+
+/* brand mark */
+.brand{position:absolute;top:max(1.5rem,env(safe-area-inset-top));left:var(--gut);display:flex;align-items:center;gap:.6rem;font-weight:700;font-size:1.05rem;letter-spacing:-.01em;z-index:3}
+.brand svg{width:30px;height:30px}
+.dark .brand{color:#fff}
+
+/* title slide */
+.title-x .x{color:var(--green);font-weight:500;margin-left:.15em}
+.title-x .partner{display:block;font-size:.62em;font-weight:700;color:#E2E8F0;letter-spacing:-.02em;margin-top:.25em}
+.meta{margin-top:2.5rem;display:flex;flex-wrap:wrap;gap:2.5rem;color:#94A3B8;font-size:.95rem}
+.meta strong{display:block;color:#fff;font-weight:600;font-size:1.05rem;margin-bottom:.15rem}
+.ramp-art{position:absolute;right:0;bottom:0;width:min(55vw,720px);height:auto;pointer-events:none;opacity:.9}
+
+/* grids */
+.cols{display:grid;gap:clamp(1.25rem,3vw,2.5rem);margin-top:2.5rem}
+.cols.c3{grid-template-columns:repeat(3,1fr)}
+.cols.c2{grid-template-columns:repeat(2,1fr)}
+.col h3{font-size:1.15rem;font-weight:700;margin-bottom:.5rem;letter-spacing:-.01em}
+.col p{color:var(--muted);line-height:1.55;font-size:1rem}
+.col{border-top:3px solid var(--line);padding-top:1rem}
+.col.g{border-color:var(--green)} .col.b{border-color:var(--blue)} .col.t{border-color:var(--teal)}
+.note{margin-top:2rem;font-size:.95rem;color:var(--muted)}
+
+/* statement */
+.statement{font-size:clamp(1.5rem,3.2vw,2.6rem);line-height:1.25;font-weight:600;letter-spacing:-.02em;max-width:30ch}
+.sides{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2.25rem}
+.chip{border:1.5px solid #334155;color:#E2E8F0;border-radius:999px;padding:.55rem 1.1rem;font-weight:500;font-size:.98rem}
+.chip.on{border-color:var(--green);color:#fff}
+
+/* steps: genuinely sequential */
+.steps{list-style:none;margin-top:2.5rem;display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;align-items:end}
+.steps li{position:relative;padding:1rem 1rem 1.1rem;background:var(--mist);border-radius:10px}
+.steps li:nth-child(1){min-height:9.5rem}.steps li:nth-child(2){min-height:11rem}.steps li:nth-child(3){min-height:12.5rem}.steps li:nth-child(4){min-height:14rem}.steps li:nth-child(5){min-height:15.5rem;background:var(--navy);color:#fff}
+.steps .n{display:inline-grid;place-items:center;width:1.9rem;height:1.9rem;border-radius:50%;background:var(--blue);color:#fff;font-weight:700;font-size:.9rem;margin-bottom:.75rem}
+.steps li:nth-child(5) .n{background:var(--green);color:var(--navy)}
+.steps h3{font-size:1.02rem;font-weight:700;margin-bottom:.35rem}
+.steps p{font-size:.92rem;line-height:1.45;color:var(--muted)}
+.steps li:nth-child(5) p{color:#CBD5E1}
+
+/* reach */
+.reach{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(1.5rem,4vw,4rem);align-items:center;margin-top:1rem}
+.big{font-size:clamp(3.5rem,9vw,7rem);font-weight:800;letter-spacing:-.04em;line-height:1;color:var(--blue)}
+.big-cap{font-size:1.05rem;color:var(--muted);line-height:1.5;margin-top:.75rem;max-width:34ch}
+.sources{list-style:none;display:grid;gap:.9rem}
+.sources li{display:flex;gap:.8rem;align-items:flex-start;font-size:1.05rem;line-height:1.45}
+.sources svg{flex:none;margin-top:.2rem}
+
+/* pilot */
+.pilot{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2.25rem}
+.pilot div{border:1.5px solid #334155;border-radius:12px;padding:1.25rem}
+.pilot h3{color:var(--green);font-size:1.05rem;margin-bottom:.4rem}
+.pilot p{color:#CBD5E1;line-height:1.5;font-size:.98rem}
+.qs{margin-top:2rem;color:#E2E8F0;line-height:1.7;font-size:1.02rem;max-width:62ch}
+.qs li{margin-left:1.2rem}
+
+.contact{margin-top:2.5rem;font-size:1.1rem;line-height:1.7}
+.contact a{color:var(--green);text-decoration:none;font-weight:600}
+.contact a:hover,.contact a:focus-visible{text-decoration:underline}
+
+/* nav */
+.nav{position:fixed;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:space-between;
+  padding:1rem var(--gut) max(1rem,env(safe-area-inset-bottom));z-index:5;pointer-events:none}
+.nav > *{pointer-events:auto}
+.btns{display:flex;gap:.5rem}
+.btn{width:2.75rem;height:2.75rem;border-radius:50%;border:1.5px solid var(--line);background:#fff;color:var(--navy);display:grid;place-items:center;cursor:pointer}
+.btn:disabled{opacity:.35;cursor:default}
+.btn:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.on-dark .btn{background:var(--navy);color:#fff;border-color:#475569}
+.progress{display:flex;align-items:flex-end;gap:4px;height:28px}
+.progress span{width:10px;background:var(--line);border-radius:2px;transition:background .3s}
+.progress span.done{background:var(--green)}
+.on-dark .progress span{background:#334155}.on-dark .progress span.done{background:var(--green)}
+.count{font-size:.85rem;color:var(--muted);margin-left:.9rem;font-variant-numeric:tabular-nums}
+.on-dark .count{color:#94A3B8}
+.left{display:flex;align-items:center}
+
+@media (max-width:820px){
+  .cols.c3,.cols.c2,.pilot,.reach{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+  .steps li{min-height:0!important}
+  .ramp-art{width:90vw;opacity:.35}
+  .slide{justify-content:flex-start;padding-top:max(5.5rem,env(safe-area-inset-top))}
+  .nav{background:#fff;box-shadow:0 -1px 0 var(--line)}
+  .nav.on-dark{background:var(--navy);box-shadow:0 -1px 0 #1E293B}
+}
+@media (prefers-reduced-motion:reduce){.slide,.progress span{transition:none}}
+@media print{
+  body{overflow:visible;background:#fff}
+  .slide{position:relative;opacity:1;visibility:visible;height:100vh;page-break-after:always}
+  .nav{display:none}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="mark" viewBox="0 0 32 32">
+    <rect width="32" height="32" rx="8" fill="#0F172A"/>
+    <path d="M7 24 L19 12" stroke="#22C55E" stroke-width="4" stroke-linecap="round"/>
+    <path d="M14 11 H21 V18" stroke="#22C55E" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M15 25 H25 V15 Z" fill="#1E40AF"/>
+  </symbol>
+  <symbol id="tick" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#22C55E"/><path d="M5.5 10.3l3 3 6-6.3" stroke="#0F172A" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<main class="deck" id="deck" aria-roledescription="slide deck">
+
+  <!-- 1 Title -->
+  <section class="slide dark" aria-label="Title">
+    <div class="brand"><svg><use href="#mark"/></svg>HeroRamp</div>
+    <svg class="ramp-art" viewBox="0 0 720 420" aria-hidden="true">
+      <path d="M0 420 L720 40" stroke="#1E40AF" stroke-width="2" opacity=".5"/>
+      <path d="M120 420 L720 120" stroke="#14B8A6" stroke-width="2" opacity=".5"/>
+      <path d="M260 420 L720 200 V420 Z" fill="#1E40AF" opacity=".55"/>
+      <path d="M480 420 L720 300 V420 Z" fill="#22C55E" opacity=".9"/>
+    </svg>
+    <div class="inner">
+      <p class="kicker">Intro conversation, October 2026</p>
+      <h1 class="title-x">HeroRamp <span class="x">×</span><span class="partner">Millennium Technology Services</span></h1>
+      <p class="lede">Building technology talent pools in the Philippines, ready before the requirement lands.</p>
+      <div class="meta">
+        <div><strong>Iya Antonio</strong>Commercial Lead, HeroRamp</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 Their world -->
+  <section class="slide" aria-label="MTS as we understand it">
+    <div class="brand"><svg><use href="#mark"/></svg>HeroRamp</div>
+    <div class="inner">
+      <p class="kicker">Where we're starting from</p>
+      <h2>MTS as we understand it today</h2>
+      <div class="cols c3">
+        <div class="col b"><h3>Round-the-clock delivery</h3><p>Service desks in Clark, Dalian and Okinawa supporting customers 24×7 in English, Chinese, Japanese and Korean.</p></div>
+        <div class="col t"><h3>Specialist talent at scale</h3><p>Engineers, developers, architects and service managers across 14 markets, for your own operations and for client projects.</p></div>
+        <div class="col g"><h3>Ramp on demand</h3><p>When a new engagement lands, the team needs to be ready fast, often with specific certifications and language skills.</p></div>
+      </div>
+      <p class="note">This is our outside-in view. We'd like to hear where it's right and where it's not.</p>
+    </div>
+  </section>
+
+  <!-- 3 Challenge -->
+  <section class="slide" aria-label="The hiring challenge">
+    <div class="brand"><svg><use href="#mark"/></svg>HeroRamp</div>
+    <div class="inner">
+      <p class="kicker">The hiring challenge</p>
+      <h2>Technical roles in the Philippines are hard to fill well, and fast</h2>
+      <div class="cols c3">
+        <div class="col"><h3>Narrow skill sets</h3><p>Vendor certifications, L2 and L3 experience, and a second language rarely show up together in one CV.</p></div>
+        <div class="col"><h3>Readiness is hard to see</h3><p>A CV says what someone did. It says much less about whether they're ready for this role, this shift and this client.</p></div>
+        <div class="col"><h3>Time lost to screening</h3><p>Recruiters spend hours filtering people who were never a fit, while client deadlines keep moving.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 What HeroRamp is -->
+  <section class="slide dark" aria-label="What HeroRamp is">
+    <div class="brand"><svg><use href="#mark"/></svg>HeroRamp</div>
+    <div class="inner">
+      <p class="kicker">What HeroRamp is</p>
+      <p class="statement">An AI-powered hiring and workforce platform that helps employers find, assess, match and hire better-prepared talent.</p>
+      <p class="lede">It connects employers, candidates and talent partners in one system, so the right people reach the right roles with clear reasons behind every match.</p>
+      <div class="sides" aria-label="Who is on the platform">
+        <span class="chip on">Employers</span><span class="chip">Candidates</span><span class="chip">Talent partners</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 How it works -->
+  <section class="slide" aria-label="How it would work for MTS">
+    <div class="brand"><svg><use href="#mark"/></svg>HeroRamp</div>
+    <div class="inner">
+      <p class="kicker">How it would work for MTS</p>
+      <h2>From requirement to shortlist</h2>
+      <ol class="steps">
+        <li><span class="n">1</span><h3>Onboard MTS</h3><p>Set up MTS as an employer on HeroRamp.</p></li>
+        <li><span class="n">2</span><h3>Load requirements</h3><p>Add live roles: skills, certifications, languages, shifts.</p></li>
+        <li><span class="n">3</span><h3>Match the pool</h3><p>Match against existing talent, with the reasoning shown for each candidate.</p></li>
+        <li><span class="n">4</span><h3>Fill the gaps</h3><p>Where the pool is thin, our partner network sources more.</p></li>
+        <li><span class="n">5</span><h3>Shortlist and hire</h3><p>Your team interviews a focused shortlist and makes the call.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 6 Reach -->
+  <section class="slide" aria-label="Where the talent comes from">
+    <div class="brand"><svg><use href="#mark"/></svg>HeroRamp</div>
+    <div class="inner">
+      <p class="kicker">Where the talent comes from</p>
+      <h2>A growing pool, backed by partner reach</h2>
+      <div class="reach">
+        <div>
+          <div class="big">100K+</div>
+          <p class="big-cap">technology candidates that some of our staffing partners collectively have access to, across different roles.</p>
+        </div>
+        <ul class="sources">
+          <li><svg width="20" height="20"><use href="#tick"/></svg>Partner schools bringing in emerging technical talent</li>
+          <li><svg width="20" height="20"><use href="#tick"/></svg>Partner companies sharing experienced professionals</li>
+          <li><svg width="20" height="20"><use href="#tick"/></svg>Staffing partners extending reach into specialist roles</li>
+        </ul>
+      </div>
+      <p class="note">We're actively onboarding talent through all three routes, with the Philippines as our starting point.</p>
+    </div>
+  </section>
+
+  <!-- 7 Two ways -->
+  <section class="slide" aria-label="Ways to work together">
+    <div class="brand"><svg><use href="#mark"/></svg>HeroRamp</div>
+    <div class="inner">
+      <p class="kicker">Ways we could work together</p>
+      <h2>Two routes worth exploring</h2>
+      <div class="cols c2">
+        <div class="col b"><h3>MTS as an employer</h3><p>Use HeroRamp to build talent pools for the roles you hire for in the Philippines, starting with the ones that are hardest to fill today.</p></div>
+        <div class="col g"><h3>MTS as a talent partner</h3><p>Bring HeroRamp into the specialist resourcing you deliver for clients, as an extra source of better-prepared Philippine talent.</p></div>
+      </div>
+      <p class="note">Other markets can follow over time, once the Philippines model is working.</p>
+    </div>
+  </section>
+
+  <!-- 8 Pilot -->
+  <section class="slide dark" aria-label="Suggested next step">
+    <div class="brand"><svg><use href="#mark"/></svg>HeroRamp</div>
+    <div class="inner">
+      <p class="kicker">Suggested next step</p>
+      <h2>Start small, with real roles</h2>
+      <div class="pilot">
+        <div><h3>Pick 2 or 3 roles</h3><p>Live Philippine requirements your team finds hardest to fill.</p></div>
+        <div><h3>Agree what good looks like</h3><p>Shortlist quality, speed and fit, defined together up front.</p></div>
+        <div><h3>Review and decide</h3><p>Look at the results side by side and choose whether to go further.</p></div>
+      </div>
+      <ul class="qs" aria-label="Questions for today">
+        <li>Which roles are hardest to fill right now, and why?</li>
+        <li>How do Hong Kong and Clark share hiring today?</li>
+        <li>Where would a better-prepared shortlist save you the most time?</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 9 Close -->
+  <section class="slide dark" aria-label="Thank you">
+    <div class="brand"><svg><use href="#mark"/></svg>HeroRamp</div>
+    <svg class="ramp-art" viewBox="0 0 720 420" aria-hidden="true">
+      <path d="M260 420 L720 200 V420 Z" fill="#1E40AF" opacity=".55"/>
+      <path d="M480 420 L720 300 V420 Z" fill="#22C55E" opacity=".9"/>
+    </svg>
+    <div class="inner">
+      <h1>Thank you</h1>
+      <p class="lede">We'd love to understand your hiring better and shape the right starting point together.</p>
+      <div class="contact">
+        Iya Antonio, Commercial Lead<br>
+        <a href="mailto:iya.antonio@heroramp.ai">iya.antonio@heroramp.ai</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<nav class="nav" id="nav" aria-label="Slide navigation">
+  <div class="left"><div class="progress" id="progress" aria-hidden="true"></div><span class="count" id="count" aria-live="polite"></span></div>
+  <div class="btns">
+    <button class="btn" id="prev" aria-label="Previous slide"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <button class="btn" id="next" aria-label="Next slide"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+  </div>
+</nav>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var nav=document.getElementById('nav'),prog=document.getElementById('progress'),count=document.getElementById('count');
+  var prev=document.getElementById('prev'),next=document.getElementById('next');
+  var n=slides.length,i=0;
+  for(var k=0;k<n;k++){var s=document.createElement('span');s.style.height=(8+k*(20/(n-1)))+'px';prog.appendChild(s);}
+  var bars=prog.children;
+  function go(to){
+    i=Math.max(0,Math.min(n-1,to));
+    slides.forEach(function(s,j){s.classList.toggle('active',j===i);s.setAttribute('aria-hidden',j!==i);});
+    for(var j=0;j<n;j++)bars[j].classList.toggle('done',j<=i);
+    nav.classList.toggle('on-dark',slides[i].classList.contains('dark'));
+    count.textContent=(i+1)+' / '+n;
+    prev.disabled=i===0;next.disabled=i===n-1;
+    if(history.replaceState)history.replaceState(null,'','#'+(i+1));
+  }
+  prev.onclick=function(){go(i-1)};next.onclick=function(){go(i+1)};
+  document.addEventListener('keydown',function(e){
+    if(['ArrowRight','PageDown',' '].indexOf(e.key)>-1){e.preventDefault();go(i+1);}
+    if(['ArrowLeft','PageUp'].indexOf(e.key)>-1){e.preventDefault();go(i-1);}
+    if(e.key==='Home')go(0);if(e.key==='End')go(n-1);
+  });
+  var x0=null,y0=null;
+  document.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});
+  document.addEventListener('touchend',function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));x0=null;},{passive:true});
+  var h=parseInt(location.hash.slice(1),10);go(isNaN(h)?0:h-1);
+})();
+</script>
+</body>
+</html>
